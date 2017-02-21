@@ -17,4 +17,9 @@ describe 'chomp' do
   it { is_expected.to run.with_params(AlsoString.new("one\n")).and_return("one") }
   it { is_expected.to run.with_params(AlsoString.new("one\n\n")).and_return("one\n") }
   it { is_expected.to run.with_params([AlsoString.new("one\n"), AlsoString.new("two"), "three\n"]).and_return(["one", "two", "three"]) }
+
+  it { is_expected.to run.with_params("ůťƒ8").and_return("ůťƒ8") }
+  it { is_expected.to run.with_params("ůťƒ8\n\n").and_return("ůťƒ8\n") }
+  it { is_expected.to run.with_params("ůťƒ8\n\n").and_return("ůťƒ8\n") }
+  it { is_expected.to run.with_params(["ưŧƒ8-1\n", "ưŧƒ8-2", "ưŧƒ8-3\n"]).and_return(["ưŧƒ8-1", "ưŧƒ8-2", "ưŧƒ8-3"]) }
 end
