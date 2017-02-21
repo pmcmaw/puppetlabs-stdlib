@@ -13,13 +13,20 @@ describe 'base64' do
   it { is_expected.to run.with_params("encode", "thestring").and_return("dGhlc3RyaW5n\n") }
   it { is_expected.to run.with_params("decode", "dGhlc3RyaW5n").and_return("thestring") }
   it { is_expected.to run.with_params("decode", "dGhlc3RyaW5n\n").and_return("thestring") }
+  it { is_expected.to run.with_params("encode", "ьāşё 64 ťé×ť").and_return("0YzEgcWf0ZEgNjQgxaXDqcOXxaU=") }
+  it { is_expected.to run.with_params("decode", "0YzEgcWf0ZEgNjQgxaXDqcOXxaU=").and_return("ьāşё 64 ťé×ť") }
+  it { is_expected.to run.with_params("decode", "0YzEgcWf0ZEgNjQgxaXDqcOXxaU=\n").and_return("ьāşё 64 ťé×ť") }
 
   it { is_expected.to run.with_params("encode", "thestring", "default").and_return("dGhlc3RyaW5n\n") }
   it { is_expected.to run.with_params("decode", "dGhlc3RyaW5n", "default").and_return("thestring") }
   it { is_expected.to run.with_params("decode", "dGhlc3RyaW5n\n", "default").and_return("thestring") }
+  it { is_expected.to run.with_params("decode", "0YzEgcWf0ZEgNjQgxaXDqcOXxaU=", "default").and_return("ьāşё 64 ťé×ť") }
 
   it { is_expected.to run.with_params("encode", "thestring", "strict").and_return("dGhlc3RyaW5n") }
   it { is_expected.to run.with_params("decode", "dGhlc3RyaW5n", "strict").and_return("thestring") }
+  it { is_expected.to run.with_params("decode", "0YzEgcWf0ZEgNjQgxaXDqcOXxaU=", "strict").and_return("ьāşё 64 ťé×ť") }
+  it { is_expected.to run.with_params("decode", "w7Z1dGluZw==", "strict").and_return("öuting") }
+
 
   it { is_expected.to run.with_params("encode", "a very long string that will cause the base64 encoder to produce output with multiple lines").and_return("YSB2ZXJ5IGxvbmcgc3RyaW5nIHRoYXQgd2lsbCBjYXVzZSB0aGUgYmFzZTY0\nIGVuY29kZXIgdG8gcHJvZHVjZSBvdXRwdXQgd2l0aCBtdWx0aXBsZSBsaW5l\ncw==\n") }
   it { is_expected.to run.with_params("decode", "YSB2ZXJ5IGxvbmcgc3RyaW5nIHRoYXQgd2lsbCBjYXVzZSB0aGUgYmFzZTY0\nIGVuY29kZXIgdG8gcHJvZHVjZSBvdXRwdXQgd2l0aCBtdWx0aXBsZSBsaW5l\ncw==\n").and_return("a very long string that will cause the base64 encoder to produce output with multiple lines") }
@@ -34,4 +41,7 @@ describe 'base64' do
 
   it { is_expected.to run.with_params("encode", "https://github.com/puppetlabs/puppetlabs-stdlib/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+Add", "urlsafe").and_return("aHR0cHM6Ly9naXRodWIuY29tL3B1cHBldGxhYnMvcHVwcGV0bGFicy1zdGRsaWIvcHVsbHM_dXRmOD0lRTIlOUMlOTMmcT1pcyUzQXByK2lzJTNBb3BlbitBZGQ=") }
   it { is_expected.to run.with_params("decode", "aHR0cHM6Ly9naXRodWIuY29tL3B1cHBldGxhYnMvcHVwcGV0bGFicy1zdGRsaWIvcHVsbHM_dXRmOD0lRTIlOUMlOTMmcT1pcyUzQXByK2lzJTNBb3BlbitBZGQ=", "urlsafe").and_return("https://github.com/puppetlabs/puppetlabs-stdlib/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+Add") }
+
+  it { is_expected.to run.with_params("encode", "www.ťếŝţụґĺ.com", "urlsafe").and_return("d3d3LsWl4bq/xZ3Fo+G7pdKRxLouY29t") }
+  it { is_expected.to run.with_params("decode", "d3d3LsWl4bq/xZ3Fo+G7pdKRxLouY29t", "urlsafe").and_return("www.ťếŝţụґĺ.com") }
 end
