@@ -29,7 +29,7 @@ describe 'size function' do
       $o = size($a)
       notice(inline_template('size is <%= @o.inspect %>'))
     DOC
-    it 'with undef' do
+    it 'with undef', :if => Puppet::Util::Package.versioncmp(Puppet.version, '6.0.0') < 0 do
       apply_manifest(pp3, :catch_failures => true) do |r|
         expect(r.stdout).to match(%r{size is 0})
       end

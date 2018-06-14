@@ -1969,6 +1969,8 @@ Randomizes the order of a string or array elements.
 
 #### `size`
 
++**Deprecated:** This function has been replaced with a built-in `sort` function as of Puppet 6.0.0.
+
 Returns the number of elements in a string, an array or a hash. This function will be deprecated in a future release. For Puppet 4, use the `length` function.
 
 *Type*: rvalue.
